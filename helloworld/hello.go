@@ -6,12 +6,13 @@ import (
 
 const (
 	spanish = "Spanish"
-	french = "French"
+	french  = "French"
 
 	englishHelloPrefix = "Hello, "
 	spanishHelloPrefix = "Hola, "
-	frenchHelloPrefix = "Bonjour, "
+	frenchHelloPrefix  = "Bonjour, "
 )
+
 func Hello(name, lang string) string {
 	if name == "" {
 		name = "World"
