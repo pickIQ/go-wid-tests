@@ -6,12 +6,23 @@ import (
 )
 
 func TestRepeat(t *testing.T) {
-	repeated := Repeat("a", 0)
-	expected := "aaaaa"
+	t.Run("default repeatTime", func(t *testing.T) {
+	  repeated := Repeat("a", 0)
+	  expected := "aaaaa"
 
-	if repeated != expected {
-		t.Errorf("expected %q but got %q", expected, repeated)
-	}
+	  if repeated != expected {
+  		t.Errorf("expected %q but got %q", expected, repeated)
+	  }
+	})
+
+	t.Run("custom repeatTime", func(t *testing.T) {
+	  repeated := Repeat("a", 3)
+	  expected := "aaa"
+
+	  if repeated != expected {
+  		t.Errorf("expected %q but got %q", expected, repeated)
+	  }
+	})
 }
 
 func ExampleRepeat() {
