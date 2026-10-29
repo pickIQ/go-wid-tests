@@ -2,32 +2,31 @@ package iteration
 
 import (
 	"fmt"
+	"go-wid-tests/helpers"
 	"testing"
 )
 
 func TestRepeat(t *testing.T) {
 	t.Run("default repeatTime", func(t *testing.T) {
-		repeated := Repeat("a", 0)
-		expected := "aaaaa"
+		got := Repeat("a", 0)
+		want := "aaaaa"
 
-		if repeated != expected {
-			t.Errorf("expected %q but got %q", expected, repeated)
-		}
+		helpers.AssertCorrectMessage(t, got, want)
+
 	})
 
 	t.Run("custom repeatTime", func(t *testing.T) {
-		repeated := Repeat("a", 3)
-		expected := "aaa"
+		got := Repeat("a", 3)
+		want := "aaa"
 
-		if repeated != expected {
-			t.Errorf("expected %q but got %q", expected, repeated)
-		}
+		helpers.AssertCorrectMessage(t, got, want)
+
 	})
 }
 
 func ExampleRepeat() {
-	repeated := Repeat("s", 3)
-	fmt.Println(repeated)
+	got := Repeat("s", 3)
+	fmt.Println(got)
 	// Output: sss
 }
 
