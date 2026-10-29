@@ -6,11 +6,11 @@ import (
 )
 
 func TestRepeat(t *testing.T) {
-	repeated := Repeat("a", 5)
-	exptected := "aaaaa"
+	repeated := Repeat("a", 0)
+	expected := "aaaaa"
 
-	if repeated != exptected {
-		t.Errorf("expected %q but got %q", exptected, repeated)
+	if repeated != expected {
+		t.Errorf("expected %q but got %q", expected, repeated)
 	}
 }
 

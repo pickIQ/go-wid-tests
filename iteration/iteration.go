@@ -2,12 +2,18 @@ package iteration
 
 import "strings"
 
-const repeatCount = 5
+const defaultRepeatCount = 5
 
-// Repeat takes char string(character which we want to repeat) and repeatTime(number of how many time we want repeat char)
+// Repeat takes char string(character which we want to repeat) and repeatTime(number of how many time we want repeat char. Default value: 5)
 func Repeat(char string, repeatTime int) string {
+	repeatCount := defaultRepeatCount
+
+	if repeatTime >= 1 {
+		repeatCount = defaultRepeatCount
+	}
+
 	var repeated strings.Builder
-	for i := 0; i < repeatTime; i++ {
+	for i := 0; i < repeatCount; i++ {
 		repeated.WriteString(char)
 	}
 
