@@ -9,7 +9,7 @@ func Repeat(char string, repeatTime int) string {
 	repeatCount := defaultRepeatCount
 
 	if repeatTime >= 1 {
-		repeatCount = defaultRepeatCount
+		repeatCount = repeatTime
 	}
 
 	var repeated strings.Builder
