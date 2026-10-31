@@ -18,7 +18,7 @@ func TestSum(t *testing.T) {
 	})
 }
 
-func TestSumAll(t *testing.T) {
+func TestSumAllTails(t *testing.T) {
 
 	checkSum := func(t *testing.T, got, want []int) {
 		t.Helper()

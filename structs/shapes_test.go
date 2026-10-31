@@ -13,7 +13,7 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	
+
 	areaTests := []struct {
 		name    string
 		shape   Shape
@@ -25,10 +25,12 @@ func TestArea(t *testing.T) {
 	}
 
 	for _, tt := range areaTests {
-		got := tt.shape.Area()
-		
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+
 		if got != tt.hasArea {
 			t.Errorf("%#v got %g want %g", tt.shape, got, tt.hasArea)
 		}
+		})
 	}
 }

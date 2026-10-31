@@ -2,8 +2,6 @@ package structs
 
 import "math"
 
-const Pi = 3.14159265359
-
 type Shape interface {
 	Area() float64
 }
@@ -26,7 +24,7 @@ func (c Circle) Area() float64 {
 }
 
 type Triangle struct {
-	Base float64
+	Base   float64
 	Height float64
 }
 
