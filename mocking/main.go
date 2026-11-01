@@ -54,10 +54,10 @@ func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
 }
 
 const finalWord = "Go!"
-const counter = 3
+const startPoint = 3
 
 func Countdown(out io.Writer, sleeper Sleeper) {
-	for i := range countDownFrom(3) {
+	for i := range countDownFrom(startPoint) {
 		fmt.Fprintln(out, i)
 		sleeper.Sleep()
 	}
