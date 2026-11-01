@@ -1,1 +1,0 @@
-Dave Cheney official Go language contributor, useful thoughts about Go and another stuffs - https://dave.cheney.net/
