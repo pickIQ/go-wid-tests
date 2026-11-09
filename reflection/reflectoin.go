@@ -3,10 +3,22 @@ package reflection
 import "reflect"
 
 func walk(x interface{}, fn func(input string)) {
-	val := getValue(x)
+	walkWithVisited(x, fn, map[uintptr]bool{})
+}
+
+func walkWithVisited(x interface{}, fn func(input string), visited map[uintptr]bool) {
+	val := reflect.ValueOf(x)
+
+	if val.Kind() == reflect.Pointer {
+		if val.IsNil() || visited[val.Pointer()] {
+			return
+		}
+		visited[val.Pointer()] = true
+		val = val.Elem()
+	}
 
 	walkValue := func(value reflect.Value) {
-		walk(value.Interface(), fn)
+		walkWithVisited(value.Interface(), fn, visited)
 	}
 
 	switch val.Kind() {
@@ -24,15 +36,19 @@ func walk(x interface{}, fn func(input string)) {
 		for _, key := range val.MapKeys() {
 			walkValue(val.MapIndex(key))
 		}
+	case reflect.Chan:
+		for {
+			if v, ok := val.Recv(); ok {
+				walkValue(v)
+			} else {
+				break
+			}
+		}
+	case reflect.Func:
+		valFuncResult := val.Call(nil)
+
+		for _, res := range valFuncResult {
+			walkValue(res)
+		}
 	}
-}
-
-func getValue(x interface{}) reflect.Value {
-	val := reflect.ValueOf(x)
-
-	if val.Kind() == reflect.Pointer {
-		val = val.Elem()
-	}
-
-	return val
 }
