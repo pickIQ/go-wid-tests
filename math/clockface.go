@@ -10,16 +10,52 @@ type Point struct {
 	Y float64
 }
 
+const (
+	secondsInHalfClock = 30
+	secondsInClock     = 2 * secondsInHalfClock
+	minutesInHalfClock = 30
+	minutesInClock     = 2 * minutesInHalfClock
+	hoursInHalfClock   = 6
+	hoursInClock       = 2 * hoursInHalfClock
+)
+
 func SecondHand(t time.Time) Point {
-	return Point{150, 60}
+	p := SecondHandPoint(t)
+	p = Point{p.X * secondHandLength, p.Y * secondHandLength}
+	p = Point{p.X, -p.Y}
+	p = Point{p.X + clockCentreX, p.Y + clockCentreY}
+	return p
 }
 
-func secondsInRadians(t time.Time) float64 {
-	return float64(math.Pi / (30 / (float64(t.Second()))))
+func SecondsInRadians(t time.Time) float64 {
+	return float64(math.Pi / (secondsInHalfClock / (float64(t.Second()))))
 }
-func secondHandPoint(t time.Time) Point {
-	angle := secondsInRadians(t)
+
+func SecondHandPoint(t time.Time) Point {
+	return angleToPoint(SecondsInRadians(t))
+}
+
+func MinuteHandPoint(t time.Time) Point {
+	return angleToPoint(MinutesInRadians(t))
+}
+
+func MinutesInRadians(t time.Time) float64 {
+	return (SecondsInRadians(t) / minutesInClock) +
+		(math.Pi / (secondsInHalfClock / float64(t.Minute())))
+}
+
+func HourHandPoint(t time.Time) Point {
+	return angleToPoint(HoursInRadians(t))
+}
+
+func HoursInRadians(t time.Time) float64 {
+	return (MinutesInRadians(t) / hoursInClock) +
+		(math.Pi / (hoursInHalfClock / float64(t.Hour()%hoursInClock)))
+}
+
+func angleToPoint(angle float64) Point {
 	x := math.Sin(angle)
 	y := math.Cos(angle)
+
 	return Point{x, y}
 }
